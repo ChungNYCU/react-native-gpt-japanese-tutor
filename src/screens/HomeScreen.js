@@ -1,5 +1,4 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 
 const HomeScreen = ({ navigation }) => {
   const navigateToDictionaryScreen = () => {
@@ -10,7 +9,6 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text>Welcome to GPT Tutor!</Text>
       <Button title="Dictionary" onPress={navigateToDictionaryScreen}></Button>
-      <StatusBar style="auto" />
     </View>
   )
 }
