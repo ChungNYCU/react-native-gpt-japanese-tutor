@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+// import { OpenAI } from 'langchain/llms/openai';
+import OpenAI from 'openai'
+
+const openai = new OpenAI({
+  apiKey: process.env.EXPO_PUBLIC_OPENAI_API_KEY,
+})
+openai.baseURL = 'https://api.openai.com/v1'
+openai.buildURL = (path) => `${openai.baseURL}${path}`
 
 const DictionaryScreen = ({ navigation: { goBack } }) => {
+  // const { OpenAI } = require("langchain/llms/openai");
   const [userInput, setUserInput] = useState('')
   const [apiResult, setApiResult] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
-  function sleep(ms) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, ms)
-    })
-  }
 
   // TODO: Implement this to call ChatGPT api, or put api related function into separate file
   const handleApiQuery = async () => {
@@ -20,44 +23,62 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
 
     setIsLoading(true)
 
+    // TODO: Move utils stuff into separate file
+    const prompt = `Generate a JSON representation of the vocabulary: ${userInput}
+    {
+      "basic": {
+        "pronunciation": "[Pronunciation goes here]",
+        "type": "[Type goes here]"
+      },
+      "detail": {
+        "definition": "[Definition goes here]",
+        "sample sentence": [list me 5 sample sentences by this vocabulary (Sentence pronunciation goes here)],
+        "grammatical tense": [
+          {"form": "[Form 1]", "variation": "[Variation 1 (Variation1 pronunciation goes here)]"},
+          {"form": "[Form 2]", "variation": "[Variation 2 (Variation2 pronunciation goes here)]"},
+          {"form": "[Form 3]", "variation": "[Variation 3 (Variation3 pronunciation goes here)]"},
+          {"form": "[Form 4]", "variation": "[Variation 4 (Variation4 pronunciation goes here)]"}
+        ]
+      }
+    }`
+
     try {
-      await sleep(2000)
-      // const response = await fetch(`YOUR_API_ENDPOINT/${userInput}`)
-      // if (response.ok) {
-      //   const data = await response.json()
-      //   setApiResult(JSON.stringify(data, null, 2))
-      // } else {
-      //   setApiResult('API Error: Unable to fetch data.')
-      // }
+      const completion = await openai.completions.create({
+        model: 'gpt-3.5-turbo-instruct',
+        prompt: prompt,
+        max_tokens: 2000,
+        temperature: 0,
+      })
+
+      console.log(completion)
+      setApiResult(completion.choices[0].text)
     } catch (error) {
-      setApiResult('Network Error: Unable to fetch data.')
+      setApiResult('Error calling ChatGPT API:' + error)
+      console.error('Error calling ChatGPT API:', error)
     } finally {
-      setApiResult(`This is result from ChatGPT about ${userInput}.`)
       setIsLoading(false)
     }
   }
 
   return (
     <View style={styles.container}>
-      <Button onPress={() => goBack()} title="Go back to Home screen" />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter a Japanese vocabulary"
+          onChangeText={(text) => setUserInput(text)}
+          value={userInput}
+        />
+        <Button title="Search" onPress={handleApiQuery} />
+      </View>
 
-      <Text>API URL: {process.env.EXPO_PUBLIC_API_URL}</Text>
-      <Text>API KEY: {process.env.EXPO_PUBLIC_API_KEY}</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Enter something to call ChatGPT api"
-        onChangeText={(text) => setUserInput(text)}
-        value={userInput}
-      />
-
-      {isLoading ? (
-        <Text>Loading...</Text>
-      ) : (
-        <Text style={styles.apiResult}>{apiResult}</Text>
-      )}
-
-      <Button title="Search" onPress={handleApiQuery} />
+      <View style={styles.resultContainer}>
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <Text style={styles.apiResult}>{apiResult}</Text>
+        )}
+      </View>
     </View>
   )
 }
@@ -69,11 +90,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ffffff',
   },
-  input: {
-    width: '80%',
-    borderWidth: 1,
+  inputContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
-    marginBottom: 10,
+  },
+  input: {
+    width: '70%',
+    marginHorizontal: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+  },
+  resultContainer: {
+    flex: 10,
   },
   apiResult: {
     marginTop: 10,
