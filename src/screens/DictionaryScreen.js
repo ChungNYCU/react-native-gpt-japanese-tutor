@@ -39,7 +39,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
           onChangeText={(text) => setUserInput(text)}
           value={userInput}
         />
-        <Button title="Search" onPress={handleApiQuery} />
+        <Button title="Go" onPress={handleApiQuery} />
       </View>
 
       <View style={styles.resultContainer}>
