@@ -1,6 +1,9 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
+import HomeScreenStyle from '../styles/HomeScreenStyle'
 
 const HomeScreen = ({ navigation }) => {
+  const styles = HomeScreenStyle
+
   const navigateToDictionaryScreen = () => {
     navigation.navigate('Dictionary')
   }
@@ -12,14 +15,5 @@ const HomeScreen = ({ navigation }) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
 
 export default HomeScreen
