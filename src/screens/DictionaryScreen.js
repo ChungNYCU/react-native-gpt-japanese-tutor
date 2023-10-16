@@ -32,6 +32,14 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.resultContainer}>
+        {isLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <Text style={styles.apiResult}>{apiResult}</Text>
+        )}
+      </View>
+
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -40,14 +48,6 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
           value={userInput}
         />
         <Button title="Go" onPress={handleApiQuery} />
-      </View>
-
-      <View style={styles.resultContainer}>
-        {isLoading ? (
-          <Text>Loading...</Text>
-        ) : (
-          <Text style={styles.apiResult}>{apiResult}</Text>
-        )}
       </View>
     </View>
   )
