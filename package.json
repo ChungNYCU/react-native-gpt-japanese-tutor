@@ -10,6 +10,7 @@
     "format": "prettier --write \"**/*.js\""
   },
   "dependencies": {
+    "@react-native-picker/picker": "^2.5.1",
     "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/drawer": "^6.6.4",
     "@react-navigation/native": "^6.1.8",
