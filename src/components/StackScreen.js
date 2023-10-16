@@ -9,7 +9,12 @@ const StackScreen = ({ routeName }) => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Stack.Navigator initialRouteName={routeName}>
+      <Stack.Navigator
+        initialRouteName={routeName}
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Dictionary" component={DictionaryScreen} />
       </Stack.Navigator>
