@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Keyboard, Text, TextInput, View, ScrollView } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
+import i18n from '../locales/i18n'
 import Button from '../components/Button'
 import OpenAIAdapter from '../utils/OpenAIAdapter'
 import dictionaryScreenStyles from '../styles/DictionaryScreenStyle'
@@ -47,7 +48,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Enter a Japanese vocabulary"
+          placeholder={i18n.t('inputPlaceHolder')}
           onChangeText={(text) => setUserInput(text)}
           value={userInput}
         />
