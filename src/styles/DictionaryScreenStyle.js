@@ -5,7 +5,6 @@ const dictionaryScreenStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ffffff',
   },
   inputContainer: {
     flex: 1,
@@ -15,7 +14,8 @@ const dictionaryScreenStyles = StyleSheet.create({
     padding: 10,
   },
   input: {
-    width: '70%',
+    width: '80%',
+    height: 45,
     marginHorizontal: 10,
     borderWidth: 1,
     borderRadius: 5,
