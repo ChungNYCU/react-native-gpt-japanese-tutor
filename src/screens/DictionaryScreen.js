@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Keyboard, Text, TextInput, View, ScrollView } from 'react-native'
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons'
 
-import Button from '../components/Button';
+import Button from '../components/Button'
 import OpenAIAdapter from '../utils/OpenAIAdapter'
 import dictionaryScreenStyles from '../styles/DictionaryScreenStyle'
 
@@ -44,9 +44,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
         </ScrollView>
       </View>
 
-
       <View style={styles.inputContainer}>
-
         <TextInput
           style={styles.input}
           placeholder="Enter a Japanese vocabulary"
@@ -57,10 +55,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
         <Button onPress={handleApiQuery}>
           <Entypo name="arrow-bold-right" size={24} color="black" />
         </Button>
-
       </View>
-
-
     </View>
   )
 }

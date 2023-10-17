@@ -1,19 +1,18 @@
 import { View } from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
 
 import Button from '../components/Button'
 import HomeScreen from '../screens/HomeScreen'
 import DictionaryScreen from '../screens/DictionaryScreen'
 import SettingsScreen from '../screens/SettingScreen'
-import StackScreenStyle from '../styles/StackScreenStyle';
+import StackScreenStyle from '../styles/StackScreenStyle'
 
 const StackScreen = ({ routeName }) => {
-
   const styles = StackScreenStyle
   const Stack = createNativeStackNavigator()
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
   const navigateToSettingScreen = () => {
     navigation.navigate('Setting')
@@ -33,13 +32,10 @@ const StackScreen = ({ routeName }) => {
       </Stack.Navigator>
 
       <View style={styles.settingButtomContainer}>
-        <Button
-          onPress={navigateToSettingScreen}
-        >
+        <Button onPress={navigateToSettingScreen}>
           <Ionicons name="settings-sharp" size={24} color="black" />
         </Button>
       </View>
-
     </View>
   )
 }

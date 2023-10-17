@@ -1,38 +1,43 @@
-import { useEffect, useState } from 'react';
-import { View, Text, Switch, StyleSheet, ScrollView, Keyboard } from 'react-native';
+import { useEffect, useState } from 'react'
+import {
+  View,
+  Text,
+  Switch,
+  StyleSheet,
+  ScrollView,
+  Keyboard,
+} from 'react-native'
 
-import Button from '../components/Button';
+import Button from '../components/Button'
 
 const SettingsScreen = () => {
-
   useEffect(() => {
-    Keyboard.dismiss();
-  }, []);
+    Keyboard.dismiss()
+  }, [])
 
-  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [selectedLanguage, setSelectedLanguage] = useState('')
 
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
-  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
+  const [darkModeEnabled, setDarkModeEnabled] = useState(false)
 
   const onLanguageChange = (value) => {
-    setSelectedLanguage(value);
+    setSelectedLanguage(value)
   }
 
   const toggleNotifications = () => {
-    setNotificationsEnabled(!notificationsEnabled);
-  };
+    setNotificationsEnabled(!notificationsEnabled)
+  }
 
   const toggleDarkMode = () => {
-    setDarkModeEnabled(!darkModeEnabled);
-  };
+    setDarkModeEnabled(!darkModeEnabled)
+  }
 
   return (
     <View style={styles.container}>
       <ScrollView>
-
         <View style={styles.settingRow}>
           <Text style={styles.settingLabel}>Preferred Language</Text>
-          <Button >
+          <Button>
             <Text style={styles.settingLabel}>English</Text>
           </Button>
         </View>
@@ -47,17 +52,11 @@ const SettingsScreen = () => {
 
         <View style={styles.settingRow}>
           <Text style={styles.settingLabel}>Dark Mode</Text>
-          <Switch
-            value={darkModeEnabled}
-            onValueChange={toggleDarkMode}
-          />
+          <Switch value={darkModeEnabled} onValueChange={toggleDarkMode} />
         </View>
-
       </ScrollView>
-
-
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -79,6 +78,6 @@ const styles = StyleSheet.create({
   settingLabel: {
     fontSize: 16,
   },
-});
+})
 
-export default SettingsScreen;
+export default SettingsScreen

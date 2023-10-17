@@ -7,7 +7,6 @@ import MainNavigationStyle from '../styles/MainNavigationStyle'
 const styles = MainNavigationStyle
 
 const MainNavigation = () => {
-
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
