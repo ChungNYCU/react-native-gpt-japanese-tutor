@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
 import HomeScreenStyle from '../styles/HomeScreenStyle'
 
 const HomeScreen = ({ navigation }) => {
