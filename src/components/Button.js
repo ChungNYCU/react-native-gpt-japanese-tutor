@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 
-const Button = ({ title }) => {
-  const Title = title
+const Button = ({ children, onPress }) => {
   const [isPressed, setIsPressed] = useState(false)
 
   const handlePressIn = () => {
@@ -16,11 +15,12 @@ const Button = ({ title }) => {
   return (
     <Pressable
       style={[styles.button, isPressed && styles.buttonPressed]}
-      android_ripple={{ color: 'lightgray', borderless: true }}
+      android_ripple={styles.android_ripple}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
+      onPress={onPress}
     >
-      <Title />
+      {children}
     </Pressable>
   )
 }
@@ -28,12 +28,16 @@ const Button = ({ title }) => {
 const styles = StyleSheet.create({
   button: {
     padding: 10,
-    marginRight: 5,
     borderRadius: 5,
+    backgroundColor: 'lightgray',
   },
   buttonPressed: {
     backgroundColor: 'gray',
     opacity: 0.7,
+  },
+  android_ripple: {
+    color: 'lightgray',
+    borderless: true,
   },
 })
 
