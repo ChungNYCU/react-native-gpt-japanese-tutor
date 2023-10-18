@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  View,
-  Text,
-  Switch,
-  ScrollView,
-  Keyboard,
-  Dimensions
-} from 'react-native'
+import { View, Text, Switch, ScrollView, Keyboard, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import i18n from '../locales/i18n'
@@ -43,6 +36,17 @@ const SettingsScreen = () => {
       await AsyncStorage.setItem('locale', 'en-US')
     }
     setSelectedLanguage(await AsyncStorage.getItem('locale'))
+    Alert.alert(
+      'Alert',
+      'Please restart or refresh your app to apply system language',
+      [
+        {
+          text: 'OK',
+          onPress: () => console.log('OK Pressed'),
+        },
+      ],
+      { cancelable: false },
+    )
   }
 
   const toggleNotifications = () => {
