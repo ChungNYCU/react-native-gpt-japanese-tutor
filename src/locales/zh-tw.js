@@ -6,6 +6,7 @@ const zhTW = {
   inputPlaceHolder: '輸入日文單字',
   english: 'English',
   traditionalChinese: '繁體中文',
+  'zh-TW': '繁體中文',
 }
 
 export { zhTW }

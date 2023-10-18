@@ -6,6 +6,7 @@ const enUS = {
   inputPlaceHolder: 'Enter a Japanese vocabulary',
   english: 'English',
   traditionalChinese: '繁體中文',
+  'en-US': 'English',
 }
 
 export { enUS }
