@@ -1,12 +1,15 @@
 import { View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
 
-import Button from '../components/Button'
 import HomeScreen from '../screens/HomeScreen'
 import DictionaryScreen from '../screens/DictionaryScreen'
 import SettingsScreen from '../screens/SettingScreen'
+
+import Header from '../components/Header'
+import Button from '../components/Button'
+
 import StackScreenStyle from '../styles/StackScreenStyle'
 
 const StackScreen = ({ routeName }) => {
@@ -23,7 +26,7 @@ const StackScreen = ({ routeName }) => {
       <Stack.Navigator
         initialRouteName={routeName}
         screenOptions={{
-          headerShown: false,
+          header: (props) => <Header />,
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
