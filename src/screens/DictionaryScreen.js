@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
-import i18n from '../locales/i18n'
 import Button from '../components/Button'
+import i18n from '../locales/i18n'
 import JapaneseVocabularyDetails from '../components/JapaneseVocabularyDetails'
+import { locales } from '../locales/locales'
 import OpenAIAdapter from '../utils/OpenAIAdapter'
+
 import dictionaryScreenStyles from '../styles/DictionaryScreenStyle'
 
 const styles = dictionaryScreenStyles
@@ -39,7 +41,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       <View style={styles.resultContainer}>
         <ScrollView nestedScrollEnabled={true}>
           {isLoading ? (
-            <Text>Loading...</Text>
+            <Text>{i18n.t(locales.loading)}</Text>
           ) : (
             <JapaneseVocabularyDetails vocabularyData={apiResult} />
           )}
@@ -49,7 +51,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder={i18n.t('inputPlaceHolder')}
+          placeholder={i18n.t(locales.inputPlaceHolder)}
           onChangeText={(text) => setUserInput(text)}
           value={userInput}
         />
