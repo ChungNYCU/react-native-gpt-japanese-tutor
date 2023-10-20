@@ -20,7 +20,7 @@ const SettingsScreen = () => {
         }
       } catch (error) {
         console.error('Error fetching locale from AsyncStorage:', error)
-        setSelectedLanguage('en-US');
+        setSelectedLanguage('en-US')
       }
     }
     Keyboard.dismiss()
@@ -64,7 +64,9 @@ const SettingsScreen = () => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.settingRow}>
-          <Text style={styles.settingLabel}>{i18n.t(locales.systemLanguage)}</Text>
+          <Text style={styles.settingLabel}>
+            {i18n.t(locales.systemLanguage)}
+          </Text>
           <Button onPress={onLanguageChange}>
             <Text style={styles.settingLabel}>{selectedLanguage}</Text>
           </Button>
