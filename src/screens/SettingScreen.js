@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
-import { View, Text, Switch, ScrollView, Keyboard, Alert } from 'react-native'
+import { Alert, Keyboard, Switch, ScrollView, Text, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import i18n from '../locales/i18n'
 import Button from '../components/Button'
+import i18n from '../locales/i18n'
+import { locales } from '../locales/locales'
+
 import SettingScreenStyle from '../styles/SettingScreenStyle'
 
 const styles = SettingScreenStyle
@@ -12,12 +14,13 @@ const SettingsScreen = () => {
   useEffect(() => {
     async function fetchLocale() {
       try {
-        const locale = await AsyncStorage.getItem('locale')
+        const locale = await AsyncStorage.getItem(locales.UI_LANGUAGE_KEY)
         if (locale !== null) {
           setSelectedLanguage(locale)
         }
       } catch (error) {
         console.error('Error fetching locale from AsyncStorage:', error)
+        setSelectedLanguage('en-US');
       }
     }
     Keyboard.dismiss()
@@ -29,13 +32,13 @@ const SettingsScreen = () => {
   const [darkModeEnabled, setDarkModeEnabled] = useState(false)
 
   const onLanguageChange = async () => {
-    const locale = await AsyncStorage.getItem('locale')
+    const locale = await AsyncStorage.getItem(locales.UI_LANGUAGE_KEY)
     if (locale === 'en-US') {
-      await AsyncStorage.setItem('locale', 'zh-TW')
+      await AsyncStorage.setItem(locales.UI_LANGUAGE_KEY, 'zh-TW')
     } else {
-      await AsyncStorage.setItem('locale', 'en-US')
+      await AsyncStorage.setItem(locales.UI_LANGUAGE_KEY, 'en-US')
     }
-    setSelectedLanguage(await AsyncStorage.getItem('locale'))
+    setSelectedLanguage(await AsyncStorage.getItem(locales.UI_LANGUAGE_KEY))
     Alert.alert(
       'Alert',
       'Please restart or refresh your app to apply system language',
@@ -61,7 +64,7 @@ const SettingsScreen = () => {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.settingRow}>
-          <Text style={styles.settingLabel}>{i18n.t('systemLanguage')}</Text>
+          <Text style={styles.settingLabel}>{i18n.t(locales.systemLanguage)}</Text>
           <Button onPress={onLanguageChange}>
             <Text style={styles.settingLabel}>{selectedLanguage}</Text>
           </Button>
@@ -69,7 +72,7 @@ const SettingsScreen = () => {
 
         <View style={styles.settingRow}>
           <Text style={styles.settingLabel}>
-            {i18n.t('enableNotifications')}
+            {i18n.t(locales.enableNotifications)}
           </Text>
           <Switch
             value={notificationsEnabled}
@@ -78,7 +81,7 @@ const SettingsScreen = () => {
         </View>
 
         <View style={styles.settingRow}>
-          <Text style={styles.settingLabel}>{i18n.t('darkMode')}</Text>
+          <Text style={styles.settingLabel}>{i18n.t(locales.darkMode)}</Text>
           <Switch value={darkModeEnabled} onValueChange={toggleDarkMode} />
         </View>
       </ScrollView>
