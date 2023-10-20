@@ -1,0 +1,12 @@
+{
+  "systemLanguage": "System language",
+  "enableNotifications": "Enable Notifications",
+  "darkMode": "Dark Mode",
+  "settings": "Settings",
+  "inputPlaceHolder": "Enter a Japanese vocabulary",
+  "loading": "Loading...",
+  "english": "English",
+  "traditionalChinese": "繁體中文",
+  "en-US": "English",
+  "zh-TW": "繁體中文"
+}
