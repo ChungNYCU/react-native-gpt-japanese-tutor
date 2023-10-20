@@ -16,7 +16,7 @@ class Prompt {
         },
         "detail": {
           "definition": "[Definition goes here and translate it to ${language}]",
-          "sample-sentences": [(list me 5 sample sentences by this vocabulary)
+          "sample-sentences": [(if the vocabulary has different meaning, generate sample sentence for each.)
             {
             "sentence": "[Sentence goes here]",
             "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
