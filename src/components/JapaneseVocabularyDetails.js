@@ -2,7 +2,9 @@ import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 
 const JapaneseVocabularyDetails = ({ vocabularyData }) => {
-  if (!vocabularyData) return
+  if (!vocabularyData || typeof vocabularyData !== 'object') {
+    return <Text>{vocabularyData}</Text>
+  }
 
   const { basic, detail } = vocabularyData
 
