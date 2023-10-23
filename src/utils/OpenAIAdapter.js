@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import Prompt from '../utils/Prompt'
+import Prompt from './Prompt'
 import AppConfig from '../../config'
 
 class OpenAIAdapter extends OpenAI {
@@ -9,9 +9,23 @@ class OpenAIAdapter extends OpenAI {
     this.buildURL = (path) => `${this.baseURL}${path}`
   }
 
-  getVocabularyDetails = async (Vocabulary) => {
+  getInputType = async (userInput) => {
     const completion = await this.completions.create(
-      this.getRequestBody(Prompt.vocabulary(Vocabulary)),
+      this.getRequestBody(Prompt.classifier(userInput)),
+    )
+    return completion.choices[0].text
+  }
+
+  getSentenceDetails = async (sentence) => {
+    const completion = await this.completions.create(
+      this.getRequestBody(Prompt.sentence(sentence)),
+    )
+    return completion.choices[0].text
+  }
+
+  getVocabularyDetails = async (vocabulary) => {
+    const completion = await this.completions.create(
+      this.getRequestBody(Prompt.vocabulary(vocabulary)),
     )
     return completion.choices[0].text
   }
