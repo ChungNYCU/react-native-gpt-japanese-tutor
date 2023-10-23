@@ -15,6 +15,7 @@ class Prompt {
   static sentence = (userInput) => {
     return `${i18n.t(locales.sentenceJsonPrompt)}: ${userInput};
     {
+      "sentence": "[${userInput}]",
       "translation": "[${i18n.t(locales.sentenceTranslationPrompt)}]",
       "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
       "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
@@ -43,7 +44,7 @@ class Prompt {
             "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
             "translation": "[Sentence translation in ${language} goes here]",
             }
-          ]
+          ],
           "grammatical-tenses": [(List all potential tenses by this vocabulary)
             {
               "form": "[Form 1]", 
