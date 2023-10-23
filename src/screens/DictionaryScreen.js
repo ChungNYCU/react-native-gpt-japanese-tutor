@@ -26,16 +26,23 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
     Keyboard.dismiss()
     setIsLoading(true)
 
-    try {
-      let result
-      const type = JSON.parse(await openai.getInputType(userInput))
+    let result
+    let type
 
-      if(type.isVocabulary){
+    try {
+      type = JSON.parse(await openai.getInputType(userInput))
+    } catch (error) {
+      console.log(error, type)
+      type = { isSentence: true, isVocabulary: false }
+    }
+
+    try {
+      if (type.isVocabulary) {
         result = JSON.parse(await openai.getVocabularyDetails(userInput))
-      }else if(type.isSentence){
+      } else if (type.isSentence) {
         result = await openai.getSentenceDetails(userInput)
-      }else{
-        result = "Cannot identify user input."
+      } else {
+        result = 'Cannot identify user input.'
       }
 
       setApiResult(result)
