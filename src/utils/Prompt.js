@@ -1,7 +1,29 @@
 import i18n from '../locales/i18n'
 
 class Prompt {
-  constructor() {}
+  constructor() { }
+
+  static classifier = (userInput) => {
+    return `Generate a JSON representation of ${userInput};
+    {
+      "isVocabulary": "is ${userInput} a vocabulary? boolean value go here",
+      "isSentence": "is ${userInput} a sentence? boolean value go here"
+    }
+    `
+  }
+
+
+  static sentence = (userInput) => {
+    const language = i18n.t(i18n.locale)
+    return `Generate a JSON representation the Japanese sentence: ${userInput};
+    {
+      "translation": "[${language} translation of the sentence goes here]",
+      "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
+      "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
+      "grammar": "[Utilize ${language} to explain "${userInput}"'s Japanese grammar goes here]"
+    }
+    `
+  }
 
   static vocabulary = (userInput) => {
     const language = i18n.t(i18n.locale)
