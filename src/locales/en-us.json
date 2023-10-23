@@ -8,5 +8,8 @@
   "english": "English",
   "traditionalChinese": "繁體中文",
   "en-US": "English",
-  "zh-TW": "繁體中文"
+  "zh-TW": "繁體中文",
+  "sentenceJsonPrompt":"Generate a JSON representation of the Japanese sentence",
+  "sentenceTranslationPrompt": "Sentence translation in English goes here",
+  "sentenceGrammarAnalysisPrompt": "Utilize Emglish to explain the sentence's Japanese grammar goes here"
 }

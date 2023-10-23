@@ -10,4 +10,7 @@ export const locales = {
   loading: 'loading',
   'zh-TW': '繁體中文',
   'en-US': 'English',
+  sentenceJsonPrompt: 'sentenceJsonPrompt',
+  sentenceTranslationPrompt: 'sentenceTranslationPrompt',
+  sentenceGrammarAnalysisPrompt: 'sentenceGrammarAnalysisPrompt',
 }
