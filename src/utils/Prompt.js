@@ -2,31 +2,56 @@ import i18n from '../locales/i18n'
 import { locales } from '../locales/locales'
 
 class Prompt {
-  constructor() {}
+  constructor() { }
 
-  static classifier = (userInput) => {
-    return `Generate a JSON representation of ${userInput};
-      "isVocabulary": "is ${userInput} a vocabulary? boolean value go here",
-      "isSentence": "is ${userInput} a sentence? boolean value go here"
-    }
+  static promptBuilder = (userInput) => {
+    const prompt = this.systemRolePrompt(userInput)
+    return prompt
+  }
+
+  static systemRolePrompt = () => {
+    return `You are a Japanese teacher, proficient in words, phrases, and grammar; 
+    For example, you can tell that '食べる' and 'ドア' are vocabulary 
+    and 'あなたは食べたいですか' is a sentence. \n
     `
   }
 
+  static systemLanguagePrompt = () => {
+    const language = i18n.t(i18n.locale)
+    return `Your student is using ${language} to learn Japanese, 
+    so please explain details in ${language}. \n
+    `
+  }
+
+  static classifier = (userInput) => {
+    const prompt = this.systemRolePrompt() +
+      `What is """${userInput}""" belong with? 
+      """DO NOT explain""" anything, select a option.  
+      1. Vocabulary    
+      2. Sentence`
+    return prompt
+  }
+
   static sentence = (userInput) => {
-    return `${i18n.t(locales.sentenceJsonPrompt)}: ${userInput};
+    const language = i18n.t(i18n.locale)
+    const prompt = this.systemRolePrompt() + this.systemLanguagePrompt() +
+      `Generate a JSON representation of the Japanese sentence: ${userInput};
+      if """${userInput}""" not Japanese, translate it to Japanese first.
     {
-      "sentence": "[${userInput}]",
-      "translation": "[${i18n.t(locales.sentenceTranslationPrompt)}]",
+      "sentence": "[${userInput} in Japanese goes here]",
+      "translation": "[Sentence translation in ${language} goes here]",
       "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
       "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
-      "grammar": "[${i18n.t(locales.sentenceGrammarAnalysisPrompt)}]"
+      "grammar": "[Explain the sentence's Japanese grammar in ${language} goes here]"
     }
     `
+    return prompt
   }
 
   static vocabulary = (userInput) => {
     const language = i18n.t(i18n.locale)
-    return `Generate a JSON representation of the Japanese vocabulary: ${userInput}; 
+    const prompt = this.systemRolePrompt() + this.systemLanguagePrompt() +
+      `Generate a JSON representation of the Japanese vocabulary: ${userInput}; 
     if ${userInput} is not Japanese, translate it to Japanese; 
       {
         "basic": {
@@ -55,6 +80,7 @@ class Prompt {
           ]
         }
       }`
+    return prompt
   }
 }
 
