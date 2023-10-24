@@ -2,12 +2,7 @@ import i18n from '../locales/i18n'
 import { locales } from '../locales/locales'
 
 class Prompt {
-  constructor() { }
-
-  static promptBuilder = (userInput) => {
-    const prompt = this.systemRolePrompt(userInput)
-    return prompt
-  }
+  constructor() {}
 
   static systemRolePrompt = () => {
     return `You are a Japanese teacher, proficient in words, phrases, and grammar; 
@@ -24,7 +19,8 @@ class Prompt {
   }
 
   static classifier = (userInput) => {
-    const prompt = this.systemRolePrompt() +
+    const prompt =
+      this.systemRolePrompt() +
       `What is """${userInput}""" belong with? 
       """DO NOT explain""" anything, select a option.  
       1. Vocabulary    
@@ -34,7 +30,9 @@ class Prompt {
 
   static sentence = (userInput) => {
     const language = i18n.t(i18n.locale)
-    const prompt = this.systemRolePrompt() + this.systemLanguagePrompt() +
+    const prompt =
+      this.systemRolePrompt() +
+      this.systemLanguagePrompt() +
       `Generate a JSON representation of the Japanese sentence: ${userInput};
       if """${userInput}""" not Japanese, translate it to Japanese first.
     {
@@ -50,7 +48,9 @@ class Prompt {
 
   static vocabulary = (userInput) => {
     const language = i18n.t(i18n.locale)
-    const prompt = this.systemRolePrompt() + this.systemLanguagePrompt() +
+    const prompt =
+      this.systemRolePrompt() +
+      this.systemLanguagePrompt() +
       `Generate a JSON representation of the Japanese vocabulary: ${userInput}; 
     if ${userInput} is not Japanese, translate it to Japanese; 
       {

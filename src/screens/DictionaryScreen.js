@@ -12,6 +12,11 @@ import dictionaryScreenStyles from '../styles/DictionaryScreenStyle'
 
 const styles = dictionaryScreenStyles
 const openai = new OpenAIAdapter(process.env.EXPO_PUBLIC_OPENAI_API_KEY)
+const inputType = {
+  vocabulary: '1',
+  sentence: '2',
+  other: '3',
+}
 
 const DictionaryScreen = ({ navigation: { goBack } }) => {
   const [userInput, setUserInput] = useState('')
@@ -30,21 +35,23 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
     let type
 
     try {
-      type = JSON.parse(await openai.getInputType(userInput))
+      type = await openai.getInputType(userInput)
     } catch (error) {
-      console.log(error, type)
-      type = { isSentence: true, isVocabulary: false }
+      console.log('Cannot get the type of userInput', error)
+      type = inputType.other
     }
 
     try {
-      if (type.isVocabulary) {
+      if (type === inputType.vocabulary) {
+        console.log('Vocabulary')
         result = JSON.parse(await openai.getVocabularyDetails(userInput))
-      } else if (type.isSentence) {
+      } else if (type === inputType.sentence) {
+        console.log('Sentence')
         result = await openai.getSentenceDetails(userInput)
       } else {
-        result = 'Cannot identify user input.'
+        console.log('UserInput type ambiguous')
+        result = await openai.getSentenceDetails(userInput)
       }
-
       setApiResult(result)
     } catch (error) {
       setApiResult('Error calling API:' + error)
