@@ -4,6 +4,7 @@ import { Entypo } from '@expo/vector-icons'
 
 import Button from '../components/Button'
 import i18n from '../locales/i18n'
+import JapaneseSentenceDetails from '../components/JapaneseSentenceDetails'
 import JapaneseVocabularyDetails from '../components/JapaneseVocabularyDetails'
 import { locales } from '../locales/locales'
 import OpenAIAdapter from '../utils/OpenAIAdapter'
@@ -47,14 +48,15 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
         result = JSON.parse(await openai.getVocabularyDetails(userInput))
       } else if (type === inputType.sentence) {
         console.log('Sentence')
-        result = await openai.getSentenceDetails(userInput)
+        result = JSON.parse(await openai.getSentenceDetails(userInput))
       } else {
         console.log('UserInput type ambiguous')
-        result = await openai.getSentenceDetails(userInput)
+        result = JSON.parse(await openai.getSentenceDetails(userInput))
       }
       setApiResult(result)
     } catch (error) {
       setApiResult('Error calling API:' + error)
+      console.log(error, result)
     } finally {
       setIsLoading(false)
       setUserInput('')
@@ -67,8 +69,10 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
         <ScrollView nestedScrollEnabled={true}>
           {isLoading ? (
             <Text>{i18n.t(locales.loading)}</Text>
-          ) : (
+          ) : apiResult?.type == 1 ? (
             <JapaneseVocabularyDetails vocabularyData={apiResult} />
+          ) : (
+            <JapaneseSentenceDetails sentenceData={apiResult} />
           )}
         </ScrollView>
       </View>
