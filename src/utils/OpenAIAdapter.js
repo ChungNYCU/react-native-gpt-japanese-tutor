@@ -18,18 +18,17 @@ class OpenAIAdapter extends OpenAI {
   }
 
   getSentenceDetails = async (sentence) => {
-    console.log(Prompt.sentence(sentence))
     const completion = await this.completions.create(
       this.getRequestBody(Prompt.sentence(sentence)),
     )
-    return completion.choices[0].text
+    return completion.choices[0].text.trim()
   }
 
   getVocabularyDetails = async (vocabulary) => {
     const completion = await this.completions.create(
       this.getRequestBody(Prompt.vocabulary(vocabulary)),
     )
-    return completion.choices[0].text
+    return completion.choices[0].text.trim()
   }
 
   getRequestBody = (inputPrompt) => {
