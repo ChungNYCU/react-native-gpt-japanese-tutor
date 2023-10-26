@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
+import Button from './Button'
+
 const JapaneseSentenceDetails = ({ sentenceData }) => {
   if (!sentenceData || typeof sentenceData !== 'object') {
     return <Text>{sentenceData}</Text>
@@ -17,6 +19,13 @@ const JapaneseSentenceDetails = ({ sentenceData }) => {
         </Text>
         <Text style={styles.text}>{sentenceData['pronunciation-romaji']}</Text>
         <Text style={styles.text}>{sentenceData.grammar}</Text>
+        <View style={styles.keywordContainer}>
+          {sentenceData.keywords.map((keyword, index) => (
+            <Button key={index} style={styles.keywordButton}>
+              <Text>{keyword}</Text>
+            </Button>
+          ))}
+        </View>
       </View>
     )
   } catch (error) {
@@ -26,8 +35,8 @@ const JapaneseSentenceDetails = ({ sentenceData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: '1%',
     backgroundColor: '#91F2CD',
+    marginHorizontal: '1%',
     width: '98%',
     padding: 10,
     borderRadius: 10,
@@ -50,6 +59,15 @@ const styles = StyleSheet.create({
   },
   tenseCard: {
     marginRight: 20,
+  },
+  keywordContainer: {
+    flexDirection: 'row',
+  },
+  keywordButton: {
+    backgroundColor: '#FFF59E',
+    marginHorizontal: 5,
+    marginTop: 10,
+    width: 'auto',
   },
 })
 

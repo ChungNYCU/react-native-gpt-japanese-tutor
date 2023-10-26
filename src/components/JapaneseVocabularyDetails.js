@@ -1,6 +1,8 @@
 import React from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 
+import Button from './Button'
+
 const JapaneseVocabularyDetails = ({ vocabularyData }) => {
   if (!vocabularyData || typeof vocabularyData !== 'object') {
     return <Text>{vocabularyData}</Text>
@@ -28,7 +30,12 @@ const JapaneseVocabularyDetails = ({ vocabularyData }) => {
           <Text style={styles.title}>Sample Sentences:</Text>
           {detail['sample-sentences'].map((item, index) => (
             <View key={index}>
-              <Text style={styles.text}>{item.sentence}</Text>
+              <View style={styles.sentenceContainer}>
+                <Button style={styles.sentenceButton}>
+                  <Text style={styles.text}>{item.sentence}</Text>
+                </Button>
+              </View>
+
               <Text style={styles.text}>{item['pronunciation-hiragana']}</Text>
               <Text style={styles.text}>{item['pronunciation-romaji']}</Text>
               <Text style={styles.text}>
@@ -63,8 +70,8 @@ const JapaneseVocabularyDetails = ({ vocabularyData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: '1%',
     backgroundColor: '#FFF59E',
+    marginHorizontal: '1%',
     width: '98%',
     padding: 10,
     borderRadius: 10,
@@ -87,6 +94,14 @@ const styles = StyleSheet.create({
   },
   tenseCard: {
     marginRight: 20,
+  },
+  sentenceContainer: {
+    flexDirection: 'row',
+    width: 'auto',
+  },
+  sentenceButton: {
+    backgroundColor: '#91F2CD',
+    marginTop: 5,
   },
 })
 
