@@ -24,6 +24,9 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
   const [apiResult, setApiResult] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
+  const drillDown = (s) => {
+    setUserInput(s)
+  }
   const handleApiQuery = async () => {
     if (!userInput) {
       return
@@ -70,9 +73,9 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
           {isLoading ? (
             <Text>{i18n.t(locales.loading)}</Text>
           ) : apiResult?.type == 1 ? (
-            <JapaneseVocabularyDetails vocabularyData={apiResult} />
+            <JapaneseVocabularyDetails vocabularyData={apiResult} drillDown={drillDown} />
           ) : (
-            <JapaneseSentenceDetails sentenceData={apiResult} />
+            <JapaneseSentenceDetails sentenceData={apiResult} drillDown={drillDown} />
           )}
         </ScrollView>
       </View>

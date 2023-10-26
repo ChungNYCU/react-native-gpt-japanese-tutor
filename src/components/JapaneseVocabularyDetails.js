@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 
 import Button from './Button'
 
-const JapaneseVocabularyDetails = ({ vocabularyData }) => {
+const JapaneseVocabularyDetails = ({ vocabularyData, drillDown }) => {
   if (!vocabularyData || typeof vocabularyData !== 'object') {
     return <Text>{vocabularyData}</Text>
   }
@@ -31,7 +31,7 @@ const JapaneseVocabularyDetails = ({ vocabularyData }) => {
           {detail['sample-sentences'].map((item, index) => (
             <View key={index}>
               <View style={styles.sentenceContainer}>
-                <Button style={styles.sentenceButton}>
+                <Button style={styles.sentenceButton} onPress={() => drillDown(item.sentence)}>
                   <Text style={styles.text}>{item.sentence}</Text>
                 </Button>
               </View>

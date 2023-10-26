@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import Button from './Button'
 
-const JapaneseSentenceDetails = ({ sentenceData }) => {
+const JapaneseSentenceDetails = ({ sentenceData, drillDown }) => {
   if (!sentenceData || typeof sentenceData !== 'object') {
     return <Text>{sentenceData}</Text>
   }
@@ -21,7 +21,7 @@ const JapaneseSentenceDetails = ({ sentenceData }) => {
         <Text style={styles.text}>{sentenceData.grammar}</Text>
         <View style={styles.keywordContainer}>
           {sentenceData.keywords.map((keyword, index) => (
-            <Button key={index} style={styles.keywordButton}>
+            <Button key={index} style={styles.keywordButton} onPress={() => drillDown(keyword)}>
               <Text>{keyword}</Text>
             </Button>
           ))}
