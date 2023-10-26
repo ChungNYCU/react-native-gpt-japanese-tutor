@@ -88,7 +88,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
           value={userInput}
         />
 
-        <Button onPress={handleApiQuery}>
+        <Button style={styles.queryButton} onPress={handleApiQuery}>
           <Entypo name="arrow-bold-right" size={24} color="black" />
         </Button>
       </View>

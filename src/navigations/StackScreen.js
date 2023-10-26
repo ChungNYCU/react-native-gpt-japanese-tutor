@@ -34,7 +34,7 @@ const StackScreen = ({ routeName }) => {
       </Stack.Navigator>
 
       <View style={styles.settingButtomContainer}>
-        <Button onPress={navigateToSettingScreen}>
+        <Button style={styles.settingButtom} onPress={navigateToSettingScreen}>
           <Ionicons name="settings-sharp" size={24} color="black" />
         </Button>
       </View>

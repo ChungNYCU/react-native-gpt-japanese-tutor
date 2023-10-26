@@ -22,6 +22,10 @@ const dictionaryScreenStyles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
   },
+  queryButton: {
+    backgroundColor: '#cccccc'
+  }
+  ,
   resultContainer: {
     flex: 10,
   },
