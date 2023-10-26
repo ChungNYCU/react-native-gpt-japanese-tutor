@@ -45,7 +45,8 @@ class Prompt {
       "translation": "[Sentence translation in ${language} goes here]",
       "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
       "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
-      "grammar": "[Explain the sentence's Japanese grammar in ${language} goes here]"
+      "grammar": "[Explain the sentence's Japanese grammar in ${language} goes here]",
+      "keywords" "[[All related Japanese vocabulary go here as a array]]"
     }
     `
     return prompt
