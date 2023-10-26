@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Pressable, StyleSheet } from 'react-native'
 
-const Button = ({ children, onPress }) => {
+const Button = ({ children, onPress = () => {}, style = {} }) => {
   const [isPressed, setIsPressed] = useState(false)
 
   const handlePressIn = () => {
@@ -14,7 +14,7 @@ const Button = ({ children, onPress }) => {
 
   return (
     <Pressable
-      style={[styles.button, isPressed && styles.buttonPressed]}
+      style={[styles.button, style, isPressed && styles.buttonPressed]}
       android_ripple={styles.android_ripple}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
@@ -29,14 +29,12 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: 'lightgray',
+    opacity: 1,
   },
   buttonPressed: {
-    backgroundColor: 'gray',
     opacity: 0.7,
   },
   android_ripple: {
-    color: 'lightgray',
     borderless: true,
   },
 })
