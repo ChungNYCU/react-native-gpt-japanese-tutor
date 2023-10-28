@@ -2,6 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import Button from './Button'
+import i18n from '../locales/i18n'
+import { locales } from '../locales/locales'
 
 const JapaneseSentenceDetails = ({ sentenceData, drillDown }) => {
   if (!sentenceData || typeof sentenceData !== 'object') {
@@ -11,8 +13,10 @@ const JapaneseSentenceDetails = ({ sentenceData, drillDown }) => {
   try {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Detail:</Text>
-        <Text style={styles.text}>Sentence: {sentenceData.sentence}</Text>
+        <Text style={styles.title}>{i18n.t(locales.detail)}:</Text>
+        <Text style={styles.text}>
+          {i18n.t(locales.sentence)}: {sentenceData.sentence}
+        </Text>
         <Text style={styles.text}>{sentenceData.translation}</Text>
         <Text style={styles.text}>
           {sentenceData['pronunciation-hiragana']}
@@ -21,7 +25,11 @@ const JapaneseSentenceDetails = ({ sentenceData, drillDown }) => {
         <Text style={styles.text}>{sentenceData.grammar}</Text>
         <View style={styles.keywordContainer}>
           {sentenceData.keywords.map((keyword, index) => (
-            <Button key={index} style={styles.keywordButton} onPress={() => drillDown(keyword)}>
+            <Button
+              key={index}
+              style={styles.keywordButton}
+              onPress={() => drillDown(keyword)}
+            >
               <Text>{keyword}</Text>
             </Button>
           ))}

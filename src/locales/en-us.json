@@ -9,7 +9,15 @@
   "traditionalChinese": "繁體中文",
   "en-US": "English",
   "zh-TW": "繁體中文",
-  "sentenceJsonPrompt":"Generate a JSON representation of the Japanese sentence",
-  "sentenceTranslationPrompt": "Sentence translation in English goes here",
-  "sentenceGrammarAnalysisPrompt": "Utilize Emglish to explain the sentence's Japanese grammar goes here"
+  "detail": "Detail",
+  "sentence": "Sentence",
+  "basicInfo": "Basic Information",
+  "vocabulary": "Vocabulary",
+  "type": "Type",
+  "pronunciation": "Pronunciation",
+  "sampleSentence": "Sample Sentences",
+  "grammaticalTense": "Grammatical Tenses",
+  "form": "Form",
+  "variation": "Variation",
+  "definition": "Definition"
 }

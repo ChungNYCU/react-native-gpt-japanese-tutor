@@ -9,7 +9,15 @@
   "traditionalChinese": "繁體中文",
   "en-US": "English",
   "zh-TW": "繁體中文",
-  "sentenceJsonPrompt":"根據此日文句子產生一個JSON回應",
-  "sentenceTranslationPrompt": "此句子的繁體中文翻譯放在這裡",
-  "sentenceGrammarAnalysisPrompt": "用繁體中文解釋這個日文句子的文法"
+  "detail": "細節",
+  "sentence": "句子",
+  "basicInfo": "基本資訊",
+  "vocabulary": "單字",
+  "type": "類別",
+  "pronunciation": "發音",
+  "sampleSentence": "例句",
+  "grammaticalTense": "文法時態",
+  "form": "形式",
+  "variation": "變體",
+  "definition": "定義"
 }
