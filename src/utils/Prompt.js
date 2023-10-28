@@ -11,7 +11,8 @@ class Prompt {
     You also a expert on JSON format, so please avoid these exceptions: 
     SyntaxError: JSON Parse error: Unexpected character: i,
     SyntaxError: JSON Parse error: Expect a string key in JSON object,
-    SyntaxError: JSON Parse error: Unexpected end of input;
+    SyntaxError: JSON Parse error: Unexpected end of input,
+    SyntaxError: JSON Parse error: U+0000 thru U+001F is not allowed in string;
     `
   }
 
@@ -45,7 +46,7 @@ class Prompt {
       "translation": "[Sentence translation in ${language} goes here]",
       "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
       "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
-      "grammar": "[Explain the sentence's Japanese grammar in ${language} goes here]",
+      "grammar": "[Use ${language} to explain whole sentence and every vocabulary detailedly in the sentence's by Japanese grammar goes here]",
       "keywords" "[[All related Japanese vocabulary go here as a array]]"
     }
     `
