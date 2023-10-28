@@ -6,9 +6,9 @@ const StackScreenStyle = StyleSheet.create({
     top: 40,
     right: 10,
   },
-  settingButtom:{
-    backgroundColor: '#cccccc'
-  }
+  settingButtom: {
+    backgroundColor: '#cccccc',
+  },
 })
 
 export default StackScreenStyle

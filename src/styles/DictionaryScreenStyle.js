@@ -23,9 +23,8 @@ const dictionaryScreenStyles = StyleSheet.create({
     padding: 10,
   },
   queryButton: {
-    backgroundColor: '#cccccc'
-  }
-  ,
+    backgroundColor: '#cccccc',
+  },
   resultContainer: {
     flex: 10,
   },

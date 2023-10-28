@@ -73,9 +73,15 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
           {isLoading ? (
             <Text>{i18n.t(locales.loading)}</Text>
           ) : apiResult?.type == 1 ? (
-            <JapaneseVocabularyDetails vocabularyData={apiResult} drillDown={drillDown} />
+            <JapaneseVocabularyDetails
+              vocabularyData={apiResult}
+              drillDown={drillDown}
+            />
           ) : (
-            <JapaneseSentenceDetails sentenceData={apiResult} drillDown={drillDown} />
+            <JapaneseSentenceDetails
+              sentenceData={apiResult}
+              drillDown={drillDown}
+            />
           )}
         </ScrollView>
       </View>
