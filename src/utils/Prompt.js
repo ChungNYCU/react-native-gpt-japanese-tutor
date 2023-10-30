@@ -1,8 +1,13 @@
+import AppConfig from '../../config'
 import i18n from '../locales/i18n'
-import { locales } from '../locales/locales'
 
 class Prompt {
-  constructor() {}
+  constructor() { }
+
+  dataType = {
+    vocabulary: 1,
+    sentence: 2
+  }
 
   static systemRolePrompt = () => {
     return `You are a Japanese teacher, proficient in words, phrases, and grammar; 
@@ -41,12 +46,12 @@ class Prompt {
       `Generate a JSON representation of the Japanese sentence: """${userInput}""";
       if """${userInput}""" not Japanese, translate it to Japanese first.
     {
-      "type": "2",
+      "type": "${AppConfig.SENTENCE}",
       "sentence": "["""${userInput}""" in Japanese goes here]",
       "translation": "[Sentence translation in ${language} goes here]",
       "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
       "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
-      "grammar": "[Use ${language} to explain whole sentence and every vocabulary detailedly in the sentence's by Japanese grammar goes here]",
+      "grammar": "[Fill the content with plain text by using ${language} to explain the Japanese grammar of the whole sentence in detail and also briefly define every vocabulary.]",
       "keywords" "[[All related Japanese vocabulary go here as a array]]"
     }
     `
@@ -61,7 +66,7 @@ class Prompt {
       `Generate a JSON representation of the Japanese vocabulary: """${userInput}"""; 
       if """${userInput}""" is not Japanese, translate it to Japanese and then do futher processes; 
     {
-      "type": "1",
+      "type": "${AppConfig.VOCABULARY}",
       "basic": {
         "vocabulary": "[Japanese vocabulary go here]",
         "type": "[Type goes here]",

@@ -6,6 +6,11 @@ const AppConfig = {
   MODEL: 'gpt-3.5-turbo-instruct',
   MAX_TOKENS: 2000,
   TEMPERATURE: 0,
+
+  // data types
+  VOCABULARY: '1',
+  SENTENCE: '2',
+  OTHER: '3',
 }
 
 export default AppConfig

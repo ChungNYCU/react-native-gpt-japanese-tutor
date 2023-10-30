@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
+import AppConfig from '../../config'
 import Button from '../components/Button'
 import i18n from '../locales/i18n'
 import JapaneseSentenceDetails from '../components/JapaneseSentenceDetails'
@@ -13,11 +14,6 @@ import dictionaryScreenStyles from '../styles/DictionaryScreenStyle'
 
 const styles = dictionaryScreenStyles
 const openai = new OpenAIAdapter(process.env.EXPO_PUBLIC_OPENAI_API_KEY)
-const inputType = {
-  vocabulary: '1',
-  sentence: '2',
-  other: '3',
-}
 
 const DictionaryScreen = ({ navigation: { goBack } }) => {
   const [userInput, setUserInput] = useState('')
@@ -27,6 +23,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
   const drillDown = (s) => {
     setUserInput(s)
   }
+  
   const handleApiQuery = async () => {
     if (!userInput) {
       return
@@ -46,10 +43,10 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
     }
 
     try {
-      if (type === inputType.vocabulary) {
+      if (type === AppConfig.VOCABULARY) {
         console.log('Vocabulary')
         result = JSON.parse(await openai.getVocabularyDetails(userInput))
-      } else if (type === inputType.sentence) {
+      } else if (type === AppConfig.SENTENCE) {
         console.log('Sentence')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
       } else {
@@ -72,7 +69,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
         <ScrollView nestedScrollEnabled={true}>
           {isLoading ? (
             <Text>{i18n.t(locales.loading)}</Text>
-          ) : apiResult?.type == 1 ? (
+          ) : apiResult?.type == AppConfig.VOCABULARY ? (
             <JapaneseVocabularyDetails
               vocabularyData={apiResult}
               drillDown={drillDown}
