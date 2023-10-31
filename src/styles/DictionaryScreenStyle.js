@@ -27,11 +27,15 @@ const dictionaryScreenStyles = StyleSheet.create({
   },
   resultContainer: {
     flex: 10,
+    width: '98%',
   },
   apiResult: {
     marginTop: 10,
     // fontFamily: 'monospace',
   },
+  message: {
+    margin: 10,
+  }
 })
 
 export default dictionaryScreenStyles

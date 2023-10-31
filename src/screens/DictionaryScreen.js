@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
@@ -8,6 +8,7 @@ import i18n from '../locales/i18n'
 import JapaneseSentenceDetails from '../components/JapaneseSentenceDetails'
 import JapaneseVocabularyDetails from '../components/JapaneseVocabularyDetails'
 import { locales } from '../locales/locales'
+import MessageHolder from '../components/MessageHolder'
 import OpenAIAdapter from '../utils/OpenAIAdapter'
 
 import dictionaryScreenStyles from '../styles/DictionaryScreenStyle'
@@ -16,18 +17,21 @@ const styles = dictionaryScreenStyles
 const openai = new OpenAIAdapter(process.env.EXPO_PUBLIC_OPENAI_API_KEY)
 
 const DictionaryScreen = ({ navigation: { goBack } }) => {
+  const scrollViewRef = useRef(null);
+  const [chat, setChat] = useState([])
   const [userInput, setUserInput] = useState('')
-  const [apiResult, setApiResult] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const drillDown = (s) => {
     setUserInput(s)
   }
-  
+
   const handleApiQuery = async () => {
     if (!userInput) {
       return
     }
+    setChat((msg) => [...msg, <MessageHolder inputText={userInput} />])
+
 
     Keyboard.dismiss()
     setIsLoading(true)
@@ -46,16 +50,17 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       if (type === AppConfig.VOCABULARY) {
         console.log('Vocabulary')
         result = JSON.parse(await openai.getVocabularyDetails(userInput))
+        setChat((msg) => [...msg, <JapaneseVocabularyDetails vocabularyData={result} drillDown={drillDown} />])
       } else if (type === AppConfig.SENTENCE) {
         console.log('Sentence')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
+        setChat((msg) => [...msg, <JapaneseSentenceDetails sentenceData={result} drillDown={drillDown} />])
       } else {
         console.log('UserInput type ambiguous')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
+        setChat((msg) => [...msg, <JapaneseSentenceDetails sentenceData={result} drillDown={drillDown} />])
       }
-      setApiResult(result)
     } catch (error) {
-      setApiResult('Error calling API:' + error)
       console.log(error, result)
     } finally {
       setIsLoading(false)
@@ -66,20 +71,13 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
   return (
     <View style={styles.container}>
       <View style={styles.resultContainer}>
-        <ScrollView nestedScrollEnabled={true}>
-          {isLoading ? (
-            <Text>{i18n.t(locales.loading)}</Text>
-          ) : apiResult?.type == AppConfig.VOCABULARY ? (
-            <JapaneseVocabularyDetails
-              vocabularyData={apiResult}
-              drillDown={drillDown}
-            />
-          ) : (
-            <JapaneseSentenceDetails
-              sentenceData={apiResult}
-              drillDown={drillDown}
-            />
-          )}
+        <ScrollView
+          ref={scrollViewRef}
+          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+          nestedScrollEnabled={true}
+          keyboardDismissMode='on-drag'>
+          {chat.map((msg, index) => <View style={styles.message} key={index}>{msg}</View>)}
+          {isLoading ? <MessageHolder inputText={i18n.t(locales.loading)} /> : <Text></Text>}
         </ScrollView>
       </View>
 
