@@ -1,9 +1,12 @@
 import { useRef, useState } from 'react'
 import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
+import 'react-native-get-random-values' // prerequisite for uuid
+import { v4 as uuidv4 } from 'uuid'
 
 import AppConfig from '../../config'
 import Button from '../components/Button'
+import { ChatDAO } from '../utils/chatDAO'
 import i18n from '../locales/i18n'
 import JapaneseSentenceDetails from '../components/JapaneseSentenceDetails'
 import JapaneseVocabularyDetails from '../components/JapaneseVocabularyDetails'
@@ -80,8 +83,28 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
     } catch (error) {
       console.log(error, result)
     } finally {
+      const dataToInsert = {
+        type: type,
+        question: userInput,
+        response: JSON.stringify(result),
+        dateTime: new Date().toISOString(),
+        UUID: uuidv4(),
+      }
+
+      let insertId
+      await ChatDAO.insertData(dataToInsert)
+        .then((result) => {
+          console.log('Data inserted successfully', result)
+          insertId = result.insertId
+        })
+        .catch((error) => {
+          console.error('Error inserting data:', error)
+        })
+
       setIsLoading(false)
       setUserInput('')
+      console.log('Get inserted data')
+      console.log(await ChatDAO.getDataById(insertId))
     }
   }
 
