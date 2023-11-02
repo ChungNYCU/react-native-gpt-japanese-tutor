@@ -17,7 +17,7 @@ const styles = dictionaryScreenStyles
 const openai = new OpenAIAdapter(process.env.EXPO_PUBLIC_OPENAI_API_KEY)
 
 const DictionaryScreen = ({ navigation: { goBack } }) => {
-  const scrollViewRef = useRef(null);
+  const scrollViewRef = useRef(null)
   const [chat, setChat] = useState([])
   const [userInput, setUserInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -31,7 +31,6 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       return
     }
     setChat((msg) => [...msg, <MessageHolder inputText={userInput} />])
-
 
     Keyboard.dismiss()
     setIsLoading(true)
@@ -50,15 +49,33 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       if (type === AppConfig.VOCABULARY) {
         console.log('Vocabulary')
         result = JSON.parse(await openai.getVocabularyDetails(userInput))
-        setChat((msg) => [...msg, <JapaneseVocabularyDetails vocabularyData={result} drillDown={drillDown} />])
+        setChat((msg) => [
+          ...msg,
+          <JapaneseVocabularyDetails
+            vocabularyData={result}
+            drillDown={drillDown}
+          />,
+        ])
       } else if (type === AppConfig.SENTENCE) {
         console.log('Sentence')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
-        setChat((msg) => [...msg, <JapaneseSentenceDetails sentenceData={result} drillDown={drillDown} />])
+        setChat((msg) => [
+          ...msg,
+          <JapaneseSentenceDetails
+            sentenceData={result}
+            drillDown={drillDown}
+          />,
+        ])
       } else {
         console.log('UserInput type ambiguous')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
-        setChat((msg) => [...msg, <JapaneseSentenceDetails sentenceData={result} drillDown={drillDown} />])
+        setChat((msg) => [
+          ...msg,
+          <JapaneseSentenceDetails
+            sentenceData={result}
+            drillDown={drillDown}
+          />,
+        ])
       }
     } catch (error) {
       console.log(error, result)
@@ -73,11 +90,22 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       <View style={styles.resultContainer}>
         <ScrollView
           ref={scrollViewRef}
-          onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}
+          onContentSizeChange={() =>
+            scrollViewRef.current.scrollToEnd({ animated: true })
+          }
           nestedScrollEnabled={true}
-          keyboardDismissMode='on-drag'>
-          {chat.map((msg, index) => <View style={styles.message} key={index}>{msg}</View>)}
-          {isLoading ? <MessageHolder inputText={i18n.t(locales.loading)} /> : <Text></Text>}
+          keyboardDismissMode="on-drag"
+        >
+          {chat.map((msg, index) => (
+            <View style={styles.message} key={index}>
+              {msg}
+            </View>
+          ))}
+          {isLoading ? (
+            <MessageHolder inputText={i18n.t(locales.loading)} />
+          ) : (
+            <Text></Text>
+          )}
         </ScrollView>
       </View>
 

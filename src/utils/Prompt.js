@@ -2,11 +2,11 @@ import AppConfig from '../../config'
 import i18n from '../locales/i18n'
 
 class Prompt {
-  constructor() { }
+  constructor() {}
 
   dataType = {
     vocabulary: 1,
-    sentence: 2
+    sentence: 2,
   }
 
   static systemRolePrompt = () => {

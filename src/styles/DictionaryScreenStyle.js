@@ -35,7 +35,7 @@ const dictionaryScreenStyles = StyleSheet.create({
   },
   message: {
     margin: 10,
-  }
+  },
 })
 
 export default dictionaryScreenStyles
