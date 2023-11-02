@@ -11,6 +11,9 @@ const AppConfig = {
   VOCABULARY: '1',
   SENTENCE: '2',
   OTHER: '3',
+
+  DB_NAME: 'gpttutor.db',
+  TABLE_NAME: 'Chat',
 }
 
 export default AppConfig
