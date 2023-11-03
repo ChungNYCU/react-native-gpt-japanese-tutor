@@ -69,12 +69,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
             drillDown={drillDown}
           />,
         ])
-      } else if(type === AppConfig.QUESTION){
-        console.log('Question')
-        result = JSON.parse(await openai.getQuestionDetails(userInput))
-        console.log(result.markdown)
-        setChat((msg) => [...msg, <MessageHolder inputText={result.markdown} />])
-      }else {
+      } else {
         console.log('UserInput type ambiguous')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
         setChat((msg) => [

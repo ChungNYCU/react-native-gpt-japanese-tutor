@@ -31,8 +31,27 @@ class Prompt {
       `What is """${userInput}""" belong with? 
       """DO NOT explain""" anything, select a option.  
       1. Vocabulary    
-      2. Sentence
-      3. General Question about Japanese`
+      2. Sentence`
+    return prompt
+  }
+
+  static sentence = (userInput) => {
+    const language = i18n.t(i18n.locale)
+    const prompt =
+      this.systemRolePrompt() +
+      this.systemLanguagePrompt() +
+      `Generate a JSON representation of the Japanese sentence: """${userInput}""";
+      if """${userInput}""" not Japanese, translate it to Japanese first.
+    {
+      "type": "${AppConfig.SENTENCE}",
+      "sentence": "["""${userInput}""" in Japanese goes here]",
+      "translation": "[Sentence translation in ${language} goes here]",
+      "pronunciation-hiragana": "[Sentence pronunciation by hiragana goes here]",
+      "pronunciation-romaji": "[Sentence pronunciation by romaj goes here]",
+      "grammar": "[Fill the content with plain text by using ${language} to explain the Japanese grammar of the whole sentence in detail and also briefly define every vocabulary.]",
+      "keywords" "[[All related Japanese vocabulary go here as a array]]"
+    }
+    `
     return prompt
   }
 
