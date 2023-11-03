@@ -17,13 +17,6 @@ class OpenAIAdapter extends OpenAI {
     return type // 1 = Vocabulary, 2 = Sentence
   }
 
-  getSentenceDetails = async (sentence) => {
-    const completion = await this.completions.create(
-      this.getRequestBody(Prompt.sentence(sentence)),
-    )
-    return completion.choices[0].text.trim()
-  }
-
   getVocabularyDetails = async (vocabulary) => {
     const completion = await this.completions.create(
       this.getRequestBody(Prompt.vocabulary(vocabulary)),
@@ -31,6 +24,20 @@ class OpenAIAdapter extends OpenAI {
     return completion.choices[0].text.trim()
   }
 
+  getSentenceDetails = async (sentence) => {
+    const completion = await this.completions.create(
+      this.getRequestBody(Prompt.sentence(sentence)),
+    )
+    return completion.choices[0].text.trim()
+  }
+
+  getQuestionDetails = async (question) => {
+    const completion = await this.completions.create(
+      this.getRequestBody(Prompt.question(question)),
+    )
+    return completion.choices[0].text.trim()
+  }
+  
   getRequestBody = (inputPrompt) => {
     return {
       model: AppConfig.MODEL,

@@ -45,7 +45,7 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
       type = await openai.getInputType(userInput)
     } catch (error) {
       console.log('Cannot get the type of userInput', error)
-      type = inputType.other
+      type = AppConfig.OTHER
     }
 
     try {
@@ -69,7 +69,12 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
             drillDown={drillDown}
           />,
         ])
-      } else {
+      } else if(type === AppConfig.QUESTION){
+        console.log('Question')
+        result = JSON.parse(await openai.getQuestionDetails(userInput))
+        console.log(result.markdown)
+        setChat((msg) => [...msg, <MessageHolder inputText={result.markdown} />])
+      }else {
         console.log('UserInput type ambiguous')
         result = JSON.parse(await openai.getSentenceDetails(userInput))
         setChat((msg) => [

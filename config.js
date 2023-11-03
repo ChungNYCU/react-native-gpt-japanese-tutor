@@ -10,7 +10,8 @@ const AppConfig = {
   // data types
   VOCABULARY: '1',
   SENTENCE: '2',
-  OTHER: '3',
+  QUESTION: '3',
+  OTHER: '4',
 
   DB_NAME: 'gpttutor.db',
   TABLE_NAME: 'Chat',
