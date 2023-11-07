@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Keyboard, ScrollView, Text, TextInput, View } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 import 'react-native-get-random-values' // prerequisite for uuid
@@ -28,6 +28,52 @@ const DictionaryScreen = ({ navigation: { goBack } }) => {
   const drillDown = (s) => {
     setUserInput(s)
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let chatHistories = await ChatDAO.getAllData()
+      console.log(chatHistories.length)
+
+      if(chatHistories.length>10){
+        chatHistories = chatHistories.slice(-10)
+      }
+      console.log(chatHistories.length)
+
+      chatHistories.map((data) => {
+        let result
+
+        switch (data.type) {
+          case AppConfig.VOCABULARY:
+            setChat((msg) => [...msg, <MessageHolder inputText={data.question} />])
+            result = JSON.parse(data.response)
+            setChat((msg) => [
+              ...msg,
+              <JapaneseVocabularyDetails
+                vocabularyData={result}
+                drillDown={drillDown}
+              />,
+            ])
+            break
+          case AppConfig.SENTENCE:
+            setChat((msg) => [...msg, <MessageHolder inputText={data.question} />])
+            result = JSON.parse(data.response)
+            setChat((msg) => [
+              ...msg,
+              <JapaneseSentenceDetails
+                sentenceData={result}
+                drillDown={drillDown}
+              />,
+            ])
+            break
+          default:
+            break
+        }
+      })
+    }
+
+    fetchData()
+  }, [])
+
 
   const handleApiQuery = async () => {
     if (!userInput) {
